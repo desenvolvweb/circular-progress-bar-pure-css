@@ -1,0 +1,48 @@
+$component-name: "c-circular-progress";
+
+.#{$component-name} {
+  $color-background: map-get($webfatorial-colors, "webfatorial-gray-5");
+  $color-fill: map-get($dpw-colors, "dpw-secondary");
+
+  @for $i from 0 through 100 {
+    $deg: 90deg + (3.6 * $i);
+
+    &--#{$i} {
+      $direction: if($i < 51, right, left);
+      $color: if($i < 51, $color-background, $color-fill);
+
+      background: linear-gradient(
+          to #{$direction},
+          #{$color} 50%,
+          transparent 50%
+        ),
+        linear-gradient(#{$deg}, $color-fill 50%, $color-background 50%);
+
+      &::before {
+        content: quote("#{$i}");
+      }
+    }
+  }
+
+  border-radius: 50%;
+  display: block;
+  height: rem(250);
+  margin: $global-module-size auto;
+  position: relative;
+  width: rem(250);
+
+  &::before {
+    align-items: center;
+    background-color: var(--color-webfatorial-white);
+    border-radius: 50%;
+    display: inline-flex;
+    font-size: 500%;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: scale(0.8);
+    width: 100%;
+  }
+}
